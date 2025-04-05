@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente IMSS</title>
+    <link rel="stylesheet" href="jarvis.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <!-- Placeholder para logo IMSS (reemplazar con imagen real) -->
+            <div class="logo-imss" style="background-color: var(--imss-green); color: white; display: flex; align-items: center; justify-content: center; border-radius: 5px;">IMSS</div>
+            <div>
+                <div class="title">Asistente IMSS</div>
+                <div class="subtitle">Asistente Virtual Institucional</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="asistente-container">
+            <div class="asistente">
+                <!-- Burbuja de pensamiento (visible solo en estado "pensando") -->
+                <div class="thought-bubble"></div>
+            </div>
+            <!-- Ondas de radio (visibles solo en estado "hablando") -->
+            <div class="radio-waves">
+                <div class="radio-wave"></div>
+                <div class="radio-wave"></div>
+                <div class="radio-wave"></div>
+            </div>
+            <!-- Ondas concéntricas (siempre visibles pero más prominentes en estado normal) -->
+            <div class="waves">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
+            <div class="status-text" id="status-text">Listo para asistirte</div>
+        </div>
+        
+        <div class="conversation-container">
+            <div id="conversation-history">
+                <div class="message jarvis-message">
+                    <div class="message-bubble">
+                        Hola, soy JARVIS del IMSS. ¿En qué puedo ayudarte hoy?
+                    </div>
+                    <span class="message-time">Ahora</span>
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <button id="voice-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </button>
+                <input type="text" id="user-input" placeholder="Escribe tu consulta aquí...">
+                <button id="send-button">Enviar</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        © 2025 Instituto Mexicano del Seguro Social | Asistente Virtual del seguro
+    </div>
+    <script src="jarvis.js"></script>
+</body>
+</html>

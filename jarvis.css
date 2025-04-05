@@ -1,0 +1,607 @@
+:root {
+    --imss-green: #006341;
+    --imss-blue: #003DA5;
+    --light-blue: #00a8ff;
+    --dark-blue: #001a33;
+    --text-light: #e0f7ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--dark-blue), #000510);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(0, 168, 255, 0.2);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-imss {
+    height: 40px;
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.asistente-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+/* Bola de JARVIS - Protagonista */
+.asistente {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--light-blue), var(--imss-blue) 70%, #000);
+    box-shadow: 
+        0 0 30px rgba(0, 168, 255, 0.6),
+        0 0 60px rgba(0, 168, 255, 0.3) inset;
+    margin: 30px auto;
+    position: relative;
+    transition: all 0.3s ease;
+    animation: flotar 4s infinite alternate ease-in-out;
+    z-index: 10;
+}
+
+.asistente:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 60%);
+    z-index: 2;
+}
+
+/* Efectos de ondas concéntricas alrededor del asistente */
+.waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    height: 180px;
+    z-index: 5;
+}
+
+.wave {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 168, 255, 0.2);
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.wave:nth-child(1) {
+    animation: wave 3s infinite linear;
+}
+
+.wave:nth-child(2) {
+    animation: wave 3s infinite 1s linear;
+}
+
+.wave:nth-child(3) {
+    animation: wave 3s infinite 2s linear;
+}
+
+/* Estado Pensando (Nube de pensamiento) */
+.asistente.pensando {
+    animation: pensar 2s infinite alternate ease-in-out;
+    background: radial-gradient(circle, #f0f0f0, #c0c0c0 70%, #a0a0a0);
+    box-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 60px rgba(200, 200, 200, 0.3) inset;
+}
+
+.thought-bubble {
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    width: 60px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 12;
+    transform: scale(0);
+}
+
+.thought-bubble:before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+}
+
+.thought-bubble:after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+}
+
+.asistente.pensando .thought-bubble {
+    animation: aparecer-burbuja 1s forwards;
+}
+
+/* Efectos de habla con ondas de radio */
+.asistente.hablando {
+    animation: pulsar 1.5s infinite ease-in-out;
+    box-shadow: 
+        0 0 40px rgba(0, 168, 255, 0.8),
+        0 0 60px rgba(0, 168, 255, 0.4),
+        0 0 20px rgba(0, 168, 255, 0.6) inset;
+}
+
+.radio-waves {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    opacity: 0;
+}
+
+.radio-wave {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    border: 2px solid rgba(0, 168, 255, 0.3);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: girar 8s linear infinite;
+}
+
+.radio-wave:nth-child(2) {
+    width: 180%;
+    height: 180%;
+    top: -40%;
+    left: -40%;
+    border-color: rgba(0, 200, 255, 0.2);
+    border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+    animation: girar 6s linear infinite reverse;
+}
+
+.radio-wave:nth-child(3) {
+    width: 160%;
+    height: 160%;
+    top: -30%;
+    left: -30%;
+    border-color: rgba(0, 230, 255, 0.1);
+    border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
+    animation: girar 4s linear infinite;
+}
+
+.asistente.hablando .radio-waves {
+    opacity: 1;
+}
+
+/* Efecto escuchando */
+.asistente.escuchando {
+    animation: escuchar 1.5s infinite ease-in-out;
+    box-shadow: 
+        0 0 40px rgba(255, 80, 80, 0.7),
+        0 0 60px rgba(255, 80, 80, 0.3),
+        0 0 20px rgba(255, 80, 80, 0.5) inset;
+}
+
+.status-text {
+    font-size: 0.9rem;
+    color: rgba(0, 200, 255, 0.7);
+    margin-top: -15px;
+    margin-bottom: 15px;
+    text-align: center;
+    height: 22px;
+    font-style: italic;
+    transition: opacity 0.3s;
+}
+
+.conversation-container {
+    width: 90%;
+    max-width: 600px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 20px;
+}
+
+/* Historial de conversación */
+#conversation-history {
+    color: var(--text-light);
+    border-radius: 12px;
+    background-color: rgba(0, 25, 50, 0.4);
+    backdrop-filter: blur(5px);
+    padding: 15px;
+    margin-bottom: 15px;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 168, 255, 0.3) rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 168, 255, 0.2);
+    min-height: 200px;
+    max-height: 300px;
+}
+
+#conversation-history::-webkit-scrollbar {
+    width: 6px;
+}
+
+#conversation-history::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+#conversation-history::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 168, 255, 0.3);
+    border-radius: 3px;
+}
+
+.message {
+    margin-bottom: 12px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.user-message {
+    text-align: right;
+}
+
+.jarvis-message {
+    text-align: left;
+}
+
+.message-bubble {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 18px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.user-message .message-bubble {
+    background-color: rgba(0, 61, 165, 0.6);
+    border: 1px solid rgba(0, 168, 255, 0.3);
+}
+
+.jarvis-message .message-bubble {
+    background-color: rgba(0, 99, 65, 0.6);
+    border: 1px solid rgba(0, 168, 255, 0.3);
+}
+
+.message-time {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Input container */
+.input-container {
+    display: flex;
+    gap: 10px;
+    width: 90%;
+    max-width: 600px;
+    margin-top: 10px;
+    position: relative;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 168, 255, 0.3);
+    background-color: rgba(0, 25, 50, 0.5);
+    color: var(--text-light);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+#user-input:focus {
+    border-color: var(--light-blue);
+    box-shadow: 0 0 15px rgba(0, 168, 255, 0.3);
+}
+
+#user-input::placeholder {
+    color: rgba(224, 247, 255, 0.5);
+}
+
+#send-button {
+    padding: 12px 20px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, var(--imss-blue), var(--imss-green));
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#voice-button {
+    padding: 12px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #e33b3b, #c62a2a);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+#voice-button.active {
+    background: linear-gradient(135deg, #2bc671, #1a8c4c);
+    animation: pulse 1.5s infinite;
+}
+
+#send-button:hover:not(:disabled),
+#voice-button:hover:not(:disabled) {
+    box-shadow: 0 0 15px rgba(0, 168, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+#send-button:disabled,
+#voice-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.footer {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(224, 247, 255, 0.5);
+    border-top: 1px solid rgba(0, 168, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Animaciones */
+@keyframes flotar {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-15px) scale(1.03); }
+}
+
+@keyframes pensar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05) rotate(5deg); }
+    100% { transform: scale(1) rotate(-5deg); }
+}
+
+@keyframes aparecer-burbuja {
+    0% { opacity: 0; transform: scale(0); }
+    50% { opacity: 0.7; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulsar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes girar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes escuchar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wave {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(42, 198, 113, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(42, 198, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(42, 198, 113, 0); }
+}
+
+/* Media queries para responsividad mejorada */
+@media (max-width: 1024px) {
+    .asistente {
+        width: 160px;
+        height: 160px;
+        margin: 25px auto;
+    }
+    
+    .waves, .radio-waves {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .asistente {
+        width: 140px;
+        height: 140px;
+        margin: 20px auto;
+    }
+    
+    .waves, .radio-waves {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .conversation-container {
+        width: 95%;
+    }
+    
+    .input-container {
+        width: 95%;
+    }
+    
+    .header {
+        padding: 10px 15px;
+    }
+    
+    .logo-imss {
+        height: 30px;
+    }
+    
+    .title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .asistente {
+        width: 120px;
+        height: 120px;
+        margin: 15px auto;
+    }
+    
+    .waves, .radio-waves {
+        width: 120px;
+        height: 120px;
+    }
+    
+    #send-button,
+    #voice-button {
+        padding: 12px 15px;
+    }
+    
+    .conversation-container {
+        width: 98%;
+    }
+    
+    .input-container {
+        width: 98%;
+        gap: 5px;
+    }
+    
+    #conversation-history {
+        min-height: 180px;
+    }
+}
+
+@media (max-width: 320px) {
+    .asistente {
+        width: 100px;
+        height: 100px;
+        margin: 10px auto;
+    }
+    
+    .waves, .radio-waves {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .title {
+        font-size: 1rem;
+    }
+    
+    .subtitle {
+        font-size: 0.8rem;
+    }
+    
+    #send-button,
+    #voice-button {
+        padding: 10px 12px;
+    }
+}
+
+/* Fixes para altura en diferentes dispositivos */
+@media (max-height: 700px) {
+    .asistente {
+        margin: 10px auto;
+    }
+    
+    #conversation-history {
+        min-height: 150px;
+        max-height: 250px;
+    }
+}
+
+@media (max-height: 600px) {
+    .asistente {
+        width: 100px;
+        height: 100px;
+        margin: 5px auto;
+    }
+    
+    .waves, .radio-waves {
+        width: 100px;
+        height: 100px;
+    }
+    
+    #conversation-history {
+        min-height: 120px;
+        max-height: 200px;
+    }
+}
